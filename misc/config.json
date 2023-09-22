@@ -1,0 +1,22 @@
+{
+    "mother-date": {
+        "mother-start-time": "2017-08-17",
+        "mother-end-time": "2023-09-20"
+    },
+    "request": {
+        "symbol": "BTCUSDT",
+        "interval": "15m",
+        "limit": 550,
+        "start-time": "2023-09-20",
+        "end-time": "2030-12-31"
+    },
+    "misc": {
+        "time-sleep": 1.25,
+        "csv-path": "candles.csv",
+        "database": {
+            "address": "",
+            "password": "",
+            "port": ""
+        }
+    } 
+}
