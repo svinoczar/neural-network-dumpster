@@ -14,17 +14,19 @@ import time
 
 """
 
+# JSON
+data = json.loads("config.json")
 
 
 # Функция для получения свечей с Binance API
-def get_candles(symbol, interval, start_time, end_time):
+def get_candles(symbol, interval, start_time, end_time, limit):
     url = 'https://api.binance.com/api/v3/klines'
     params = {
         'symbol': symbol,
         'interval': interval,
         'startTime': start_time,
         'endTime': end_time,
-        'limit': 550  # Количество свечей, которые хотите получить за один запрос
+        'limit': limit  # Количество свечей, которые хотите получить за один запрос
     }
     response = requests.get(url, params=params)
     candles = json.loads(response.text)
@@ -35,19 +37,20 @@ symbol = 'BTCUSDT'
 interval = '15m'
 start_time = int(datetime(2017, 8, 17).timestamp() * 1000)
 end_time = int(datetime(2023, 9, 20).timestamp() * 1000)
-count = 1
+limit = 550
 
 # Получение свечей с Binance API
 all_candles = []
 current_time = start_time
+request_count = 1
 
 while current_time < end_time:
-    print(f"Запрос номер {count}")
+    print(f"Запрос номер {request_count}")
     candles = get_candles(symbol, interval, current_time, end_time)
     all_candles.extend(candles)
     last_candle_time = candles[-1][0]
     current_time = int(last_candle_time) + 1
-    count += 1
+    request_count += 1
     time.sleep(1.25)
 
 # Запись полученных свечей в CSV файл
