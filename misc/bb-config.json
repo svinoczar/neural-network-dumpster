@@ -1,1 +1,23 @@
-{"mother-date": {"mother-start-time": "2018-11-14", "mother-end-time": "2023-10-05"}, "request": {"symbol": "BTCUSDT", "interval": "15", "start-time": "2023-10-05", "end-time": "2023-10-05", "delta_time": 1}, "misc": {"time-sleep": 0.25, "csv-path": "datasets/bitcoin.csv", "database": {"address": "", "password": "", "port": ""}}}
+{
+    "mother-date": {
+        "mother-start-time": "2022-03-25",
+        "mother-end-time": "2023-10-07"
+    },
+    "request": {
+        "symbol": "SOLUSD",
+        "interval": "15",
+        "start-time": "2022-03-25",
+        "end-time": "2023-10-07",
+        "delta_time": 1,
+        "limit": 96
+    },
+    "misc": {
+        "time-sleep": 0,
+        "csv-path": "datasets/bybit-solana.csv",
+        "database": {
+            "address": "",
+            "password": "",
+            "port": ""
+        }
+    }
+}
