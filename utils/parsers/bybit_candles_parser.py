@@ -7,7 +7,7 @@ import pytz
 
 
 # Чтение, получение, проверка и корректировка параметров из JSON файла
-with open('misc/bb-config.json') as f:
+with open('utils/parsers/bb-config.json') as f:
     params = json.load(f)
 f.close()
 
@@ -17,7 +17,7 @@ params['request']['end-time'] = min(datetime.strptime(params['request']['end-tim
                                     '%Y-%m-%d').date(), datetime.now(pytz.timezone('Europe/Moscow')).date())
 params['mother-date']['mother-end-time'] = params['request']['end-time']
 
-with open('misc/bb-config.json', 'w') as f:
+with open('utils/parsers/bb-config.json', 'w') as f:
     json.dump(params, f, default=str)
 f.close()
 
@@ -84,6 +84,6 @@ with open(csv_path, mode='a', newline='') as file:
                 writer.writerow([timestamp, open_price, close_price,
                         high_price, low_price, volume, turnover])
         else: print('Ooops! Something went wrong...')
-        print(f'{timestamp}')
+        # print(f'{timestamp}')
         start_time += delta_time
         time.sleep(time_sleep)

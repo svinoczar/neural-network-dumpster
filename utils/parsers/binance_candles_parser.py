@@ -8,7 +8,7 @@ import pytz
 
 
 # Чтение, получение, проверка и корректировка параметров из JSON файла
-with open('misc/bn-config.json') as f:
+with open('utils/parsers/bn-config.json') as f:
     params = json.load(f)
 f.close()
 
@@ -16,7 +16,7 @@ params['request']['start-time'] = max(params['request']['start-time'], params['m
 params['request']['end-time'] = min(datetime.strptime(params['request']['end-time'], '%Y-%m-%d').date(), datetime.now(pytz.timezone('Europe/Moscow')).date())
 params['mother-date']['mother-end-time'] = params['request']['end-time']
 
-with open('misc/bn-config.json', 'w') as f:
+with open('utils/parsers/bn-config.json', 'w') as f:
     json.dump(params, f, default=str)
 f.close()
 
@@ -46,7 +46,7 @@ def get_candles():
     params = {
         'symbol': symbol,
         'interval': interval,
-        'startTime': start_time,
+        'startTime': current_time,
         'endTime': end_time,
         'limit': limit  # Количество свечей, которые хотите получить за один запрос
     }
@@ -67,6 +67,7 @@ while current_time < end_time:
     last_candle_time = candles[-1][0]
     current_time = int(last_candle_time) + 1
     time.sleep(time_sleep)
+    print(f"current time: {current_time}\nend_time: {end_time}")
 
 
 # Проверка CSV файла на наличие хеддера
@@ -76,7 +77,6 @@ with open(csv_path, mode='r', newline='') as f:
 f.close()
 if "Date,Open,High,Low,Close,Volume,Close Time,Quote Asset Volume,Number of Trades,Taker Buy Base Asset Volume,Taker Buy Quote Asset Volume,Ignore" in csv_temp:
     header_flag = True
- 
 
 
 # Запись полученных свечей в CSV файл
