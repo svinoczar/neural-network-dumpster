@@ -1,18 +1,1 @@
-{
-    "mother-date": {
-        "mother-start-time": "2017-08-17",
-        "mother-end-time": "2023-11-09"
-    },
-    "request": {
-        "symbol": "BTCUSDT",
-        "interval": "15m",
-        "start-time": "2023-11-08",
-        "end-time": "2023-11-09",
-        "limit": 550
-    },
-    "misc": {
-        "time-sleep": 1.25,
-        "csv-path": "datasets/binance-bitcoin.csv",
-        "database": { "address": "", "password": "", "port": "" }
-    }
-}
+{"mother-date": {"mother-start-time": "2017-08-17", "mother-end-time": "2023-11-13"}, "request": {"symbol": "BTCUSDT", "interval": "1h", "start-time": "2017-08-17", "end-time": "2023-11-13", "limit": 550}, "misc": {"time-sleep": 0.001, "csv-path": "datasets/binance-bitcoin-h.csv", "database": {"address": "", "password": "", "port": ""}}}

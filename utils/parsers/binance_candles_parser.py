@@ -72,36 +72,67 @@ while current_time < end_time:
 
 # Проверка CSV файла на наличие хеддера
 header_flag = False
-with open(csv_path, mode='r', newline='') as f:
-    csv_temp = f.read()
-f.close()
-if "Date,Open,High,Low,Close,Volume,Close Time,Quote Asset Volume,Number of Trades,Taker Buy Base Asset Volume,Taker Buy Quote Asset Volume,Ignore" in csv_temp:
-    header_flag = True
+try:
+    with open(csv_path, mode='r', newline='') as f:
+        csv_temp = f.read()
+    f.close()
+    if "Date,Open,High,Low,Close,Volume,Close Time,Quote Asset Volume,Number of Trades,Taker Buy Base Asset Volume,Taker Buy Quote Asset Volume,Ignore" in csv_temp:
+        header_flag = True
+except:
+    header_flag = False
+
 
 
 # Запись полученных свечей в CSV файл
-skip_line = True
-with open(csv_path, mode='a', newline='') as file:
-    writer = csv.writer(file)
-    if not header_flag:
-        writer.writerow(['Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Close Time', 'Quote Asset Volume', 'Number of Trades', 'Taker Buy Base Asset Volume', 'Taker Buy Quote Asset Volume', 'Ignore'])
-    for candle in all_candles:
-        open_time = datetime.fromtimestamp(int(candle[0]) / 1000)
-        open_price = float(candle[1])
-        high_price = float(candle[2])
-        low_price = float(candle[3])
-        close_price = float(candle[4])
-        volume = float(candle[5])
-        close_time = datetime.fromtimestamp(int(candle[6]) / 1000)
-        quote_asset_volume = float(candle[7])
-        number_of_trades = int(candle[8])
-        taker_buy_base_asset_volume = float(candle[9])
-        taker_buy_quote_asset_volume = float(candle[10])
-        ignore = float(candle[11])
-        
-        if skip_line: 
-            skip_line = False 
-            continue
-        
-        # Запись параметров свечи в CSV файл
-        writer.writerow([open_time, open_price, high_price, low_price, close_price, volume, close_time, quote_asset_volume, number_of_trades, taker_buy_base_asset_volume, taker_buy_quote_asset_volume, ignore])
+try:
+    skip_line = False
+    with open(csv_path, mode='a', newline='') as file:
+        writer = csv.writer(file)
+        if not header_flag:
+            writer.writerow(['Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Close Time', 'Quote Asset Volume', 'Number of Trades', 'Taker Buy Base Asset Volume', 'Taker Buy Quote Asset Volume', 'Ignore'])
+        for candle in all_candles:
+            open_time = datetime.fromtimestamp(int(candle[0]) / 1000)
+            open_price = float(candle[1])
+            high_price = float(candle[2])
+            low_price = float(candle[3])
+            close_price = float(candle[4])
+            volume = float(candle[5])
+            close_time = datetime.fromtimestamp(int(candle[6]) / 1000)
+            quote_asset_volume = float(candle[7])
+            number_of_trades = int(candle[8])
+            taker_buy_base_asset_volume = float(candle[9])
+            taker_buy_quote_asset_volume = float(candle[10])
+            ignore = float(candle[11])
+
+            if skip_line:
+                skip_line = False
+                continue
+
+            # Запись параметров свечи в CSV файл
+            writer.writerow([open_time, open_price, high_price, low_price, close_price, volume, close_time, quote_asset_volume, number_of_trades, taker_buy_base_asset_volume, taker_buy_quote_asset_volume, ignore])
+except:
+    skip_line = True
+    with open(csv_path, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        if not header_flag:
+            writer.writerow(['Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Close Time', 'Quote Asset Volume', 'Number of Trades', 'Taker Buy Base Asset Volume', 'Taker Buy Quote Asset Volume', 'Ignore'])
+        for candle in all_candles:
+            open_time = datetime.fromtimestamp(int(candle[0]) / 1000)
+            open_price = float(candle[1])
+            high_price = float(candle[2])
+            low_price = float(candle[3])
+            close_price = float(candle[4])
+            volume = float(candle[5])
+            close_time = datetime.fromtimestamp(int(candle[6]) / 1000)
+            quote_asset_volume = float(candle[7])
+            number_of_trades = int(candle[8])
+            taker_buy_base_asset_volume = float(candle[9])
+            taker_buy_quote_asset_volume = float(candle[10])
+            ignore = float(candle[11])
+
+            if skip_line:
+                skip_line = False
+                continue
+
+            # Запись параметров свечи в CSV файл
+            writer.writerow([open_time, open_price, high_price, low_price, close_price, volume, close_time, quote_asset_volume, number_of_trades, taker_buy_base_asset_volume, taker_buy_quote_asset_volume, ignore])
